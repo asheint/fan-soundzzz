@@ -1,32 +1,55 @@
+// src/app/page.js
+
 "use client";
+
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import LoadingPage from "../components/LoadingPage";
 
 export default function Home() {
   const [version, setVersion] = useState(null);
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch current version from API
-    fetch("/api/version")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.version === "v0") {
-          // Redirect to v0 HTML page
-          window.location.href = "/v0/index.html";
-        } else {
-          setVersion("v1");
-        }
-      });
+    // Fetch the version from the API
+    async function fetchVersion() {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/version");
+        const data = await response.json();
+        setVersion(data.version);
+
+        // Small delay to ensure everything is loaded
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      } catch (error) {
+        console.error("Error fetching version:", error);
+        setLoading(false);
+      }
+    }
+
+    fetchVersion();
   }, []);
 
-  if (!version) return <div>Loading...</div>;
+  useEffect(() => {
+    // Handle version changes
+    if (version === "v0") {
+      // For v0, we're going to redirect to the static HTML file
+      window.location.href = "/v0/index.html";
+    }
+    // For v1, we would render the React components here
+  }, [version]);
 
-  // Your v1 Next.js app content
+  // Show loading page while determining version or during transition
+  if (loading || !version) {
+    return <LoadingPage />;
+  }
+
+  // This will only show if version is 'v1' since 'v0' redirects
   return (
-    <main>
-      <h1>Fan SoundZzz - v1</h1>
-      {/* Your Three.js content will go here */}
-    </main>
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h1>Fan SoundZzz v1</h1>
+      <p>Modern version of Fan SoundZzz coming soon!</p>
+    </div>
   );
 }

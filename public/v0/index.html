@@ -4,11 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Enhanced SEO Meta Tags -->
     <meta name="description"
-        content="Get the best fan sounds for sleeping. High-quality table fan sounds, ceiling fan sounds, and box fan sounds to help you sleep better.">
+        content="Get the best fan sounds for sleeping. High-quality table fan sounds, ceiling fan sounds, and box fan sounds to help you sleep better. Free white noise sleep aid.">
     <meta name="keywords"
-        content="fan sounds for sleeping, fan sounds, fan sound, box fan sound, white noise, sleep aid">
+        content="fan sounds for sleeping, fan sounds, fan sound, box fan sound, white noise fan sound, ceiling fan sound, table fan sound, sleep aid, sleeping, white noise machine">
+    
+    <!-- Open Graph / Social Media Tags -->
+    <meta property="og:title" content="Fan SoundZzz - Free Fan Sounds for Sleeping">
+    <meta property="og:description" content="Get high-quality fan sounds to help you sleep better. Choose from table, ceiling, and box fan sounds for the perfect white noise sleep aid.">
+    <meta property="og:url" content="https://fansoundzzz.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Canonical URL to prevent duplicate content issues -->
+    <link rel="canonical" href="https://fansoundzzz.com">
+    
     <title>Fan SoundZzz - The Best Fan Sounds for Sleeping | White Noise Sleep Aid</title>
+    
+    <!-- Google AdSense code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOURPUBLISHERID" crossorigin="anonymous"></script>
+    
     <style>
         /* Reset and Base Styles */
         * {
@@ -99,14 +115,10 @@
             width: 100%;
             margin: 15px auto;
             min-height: 90px;
-            background-color: #ffffcc;
-            border: 1px dashed #999966;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 5px;
-            font-size: 12px;
-            color: #999966;
         }
 
         .ad-unit-sidebar {
@@ -128,12 +140,18 @@
             border: 3px solid #9999cc;
             margin: 10px auto;
             background-color: white;
+            object-fit: contain;
         }
 
         /* Controls */
         .radio-group label {
             margin: 0 10px;
             cursor: pointer;
+        }
+
+        .radio-group input[disabled] + label {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         button {
@@ -202,6 +220,42 @@
             }
         }
 
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ccccff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-text {
+            color: purple;
+            font-size: 24px;
+            text-shadow: 2px 2px pink;
+            margin-bottom: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #9999cc;
+            border-top: 5px solid purple;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -229,6 +283,13 @@
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-text blink">Loading Fan SoundZzz...</div>
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 20px; color: navy;">Please wait while we tune your fan...</p>
+    </div>
+
     <div class="container">
         <div class="header">
             <span class="site-title">Fan SoundZzz</span>
@@ -239,17 +300,25 @@
 
         <div class="ad-unit">
             <!-- AdSense Ad Unit (Header Banner) -->
-            <div id="adsense-header">AdSense Banner Ad (728x90)</div>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOURPUBLISHERID"
+                data-ad-slot="HEADER-AD-SLOT"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
-        <marquee scrollamount="5">🔊 THE BEST FAN SOUNDS FOR SLEEPING! WHITE NOISE SLEEP AID! 🔊</marquee>
+        <marquee scrollamount="5">🔊 THE BEST FAN SOUNDS FOR SLEEPING! FREE WHITE NOISE SLEEP AID! 🔊</marquee>
 
         <h1>Fan SoundZzz - Fan Sounds for Sleeping</h1>
         <p class="blink">⭐⭐⭐ Free High-Quality Fan Sounds! ⭐⭐⭐</p>
 
         <div class="fan-selection">
             <h3>Select Your Fan Type:</h3>
-            <div class="radio-group">
+            <div class="radio-group" id="fan-type-selector">
                 <input type="radio" id="table-fan" name="fan-type" value="table" checked
                     onchange="changeFanImage('table')">
                 <label for="table-fan">TABLE FAN</label>
@@ -266,7 +335,7 @@
         <div class="content-wrapper" style="display: flex; flex-wrap: wrap; justify-content: center;">
             <div style="flex: 2; min-width: 300px;">
                 <div id="fan-display">
-                    <img id="fan-image" src="/api/placeholder/200/200" alt="Fan Sound for Sleeping" class="fan-image">
+                    <img id="fan-image" src="./images/table-fan.png" alt="Table Fan Sound for Sleeping" class="fan-image">
                 </div>
 
                 <div>
@@ -277,14 +346,30 @@
             <div style="flex: 1; min-width: 160px;">
                 <div class="ad-unit ad-unit-sidebar">
                     <!-- AdSense Ad Unit (Sidebar) -->
-                    <div id="adsense-sidebar">AdSense Sidebar Ad (160x600)</div>
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOURPUBLISHERID"
+                        data-ad-slot="SIDEBAR-AD-SLOT"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </div>
         </div>
 
         <div class="ad-unit">
             <!-- AdSense Ad Unit (Middle Banner) -->
-            <div id="adsense-middle">AdSense Banner Ad (728x90)</div>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOURPUBLISHERID"
+                data-ad-slot="MIDDLE-AD-SLOT"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
         <div class="seo-content">
@@ -303,23 +388,61 @@
             <p>Everyone has different preferences when it comes to fan sounds. Table fan sounds offer a gentle, moderate
                 noise level. Ceiling fan sounds provide a softer, more ambient background noise. Box fan sounds deliver
                 a deeper, more powerful white noise experience that's perfect for noisy environments.</p>
+                
+            <h3>Fan Sounds vs Other White Noise Options</h3>
+            <p>While there are many white noise options available, fan sounds are uniquely effective for several reasons. 
+               Unlike pure white noise machines that can sound static and artificial, fan sounds have a natural, organic 
+               quality that many people find more soothing. The rhythmic, consistent nature of a fan sound creates 
+               a perfect background noise that's neither too intrusive nor too quiet.</p>
+               
+            <h3>How Fan Sounds Support Better Sleep</h3>
+            <p>Research suggests that consistent background noise like fan sounds can help maintain sleep throughout the night
+               by masking sudden changes in environmental noise that might otherwise wake you. The gentle acoustic masking
+               effect of fan sounds creates an optimal sleep environment, especially in noisy urban settings or for light sleepers.</p>
         </div>
 
         <div class="ad-unit">
             <!-- AdSense Ad Unit (Bottom Banner) -->
-            <div id="adsense-bottom">AdSense Banner Ad (728x90)</div>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOURPUBLISHERID"
+                data-ad-slot="BOTTOM-AD-SLOT"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
-        <audio id="table-fan-sound">
-            <source src="#" type="audio/mpeg">
+        <!-- Audio Elements -->
+        <audio id="table-fan-start">
+            <source src="./sounds/table-fan-start.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="table-fan-loop" loop>
+            <source src="./sounds/table-fan-loop.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="table-fan-stop">
+            <source src="./sounds/table-fan-stop.mp3" type="audio/mpeg">
         </audio>
 
-        <audio id="ceiling-fan-sound">
-            <source src="#" type="audio/mpeg">
+        <audio id="ceiling-fan-start">
+            <source src="./sounds/ceiling-fan-start.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="ceiling-fan-loop" loop>
+            <source src="./sounds/ceiling-fan-loop.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="ceiling-fan-stop">
+            <source src="./sounds/ceiling-fan-stop.mp3" type="audio/mpeg">
         </audio>
 
-        <audio id="box-fan-sound">
-            <source src="#" type="audio/mpeg">
+        <audio id="box-fan-start">
+            <source src="./sounds/box-fan-start.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="box-fan-loop" loop>
+            <source src="./sounds/box-fan-loop.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="box-fan-stop">
+            <source src="./sounds/box-fan-stop.mp3" type="audio/mpeg">
         </audio>
 
         <div class="footer">
@@ -340,17 +463,29 @@
     // Fan Sound Player Functionality
     let isPlaying = false;
     let currentFanType = "table";
+    let currentStartSound = null;
+    let currentLoopSound = null;
+    let currentStopSound = null;
+    
+    // Loading screen functionality
+    window.addEventListener('load', function() {
+      // Hide the loading screen after a slight delay to ensure all assets are loaded
+      setTimeout(function() {
+        document.getElementById('loading-screen').style.display = 'none';
+      }, 1500);
+    });
     
     function changeFanImage(fanType) {
-      currentFanType = fanType;
-      // In a real site, you would change the actual image source
-      const fanImage = document.getElementById("fan-image");
-      fanImage.alt = `${fanType} fan sound for sleeping`;
-      
       if (isPlaying) {
-        stopSound();
-        playSound();
+        return; // Prevent changing fan type while playing
       }
+      
+      currentFanType = fanType;
+      
+      // Change the image source
+      const fanImage = document.getElementById("fan-image");
+      fanImage.src = `./images/${fanType}-fan.png`;
+      fanImage.alt = `${fanType} fan sound for sleeping`;
     }
     
     function toggleSound() {
@@ -365,20 +500,58 @@
       const button = document.getElementById("play-button");
       button.innerHTML = "STOP FAN SOUND";
       button.style.backgroundColor = "red";
-      isPlaying = true;
       
-      // In a real implementation, you would play the actual sound
-      console.log(`Playing ${currentFanType} fan sound`);
+      // Disable radio inputs while playing
+      toggleFanTypeInputs(true);
+      
+      // First play the start-up sound
+      currentStartSound = document.getElementById(`${currentFanType}-fan-start`);
+      currentLoopSound = document.getElementById(`${currentFanType}-fan-loop`);
+      currentStopSound = document.getElementById(`${currentFanType}-fan-stop`);
+      
+      currentStartSound.play();
+      
+      // When start-up sound ends, play the loop sound
+      currentStartSound.onended = function() {
+        currentLoopSound.play();
+      };
+      
+      isPlaying = true;
     }
     
     function stopSound() {
       const button = document.getElementById("play-button");
       button.innerHTML = "START FAN SOUND";
       button.style.backgroundColor = "lime";
-      isPlaying = false;
       
-      // In a real implementation, you would stop the actual sound
-      console.log(`Stopped ${currentFanType} fan sound`);
+      // Enable radio inputs after stopping
+      toggleFanTypeInputs(false);
+      
+      // Fade out current loop sound
+      let volume = 1.0;
+      const fadeInterval = setInterval(function() {
+        volume -= 0.1;
+        if (volume <= 0.0) {
+          clearInterval(fadeInterval);
+          currentLoopSound.pause();
+          currentLoopSound.currentTime = 0;
+          
+          // Play the stop sound
+          currentStopSound.play();
+        } else {
+          currentLoopSound.volume = volume;
+        }
+      }, 100);
+      
+      isPlaying = false;
+    }
+    
+    // Toggle fan type inputs based on playing state
+    function toggleFanTypeInputs(disabled) {
+      const radios = document.querySelectorAll('input[name="fan-type"]');
+      radios.forEach(radio => {
+        radio.disabled = disabled;
+      });
     }
     
     // GitHub Stars Counter
@@ -399,22 +572,11 @@
       }
     }
     
-    // Visit Counter - This requires server-side implementation
+    // Visit Counter
     function fetchVisitCount() {
-      // This is a placeholder. You would need to implement a server-side solution
-      // Options include:
-      // 1. Use a simple PHP counter script
-      // 2. Use Google Analytics API
-      // 3. Use a third-party counter service
-      
-      // For now, we'll simulate with a random number
+      // For now, a random number for demonstration
       const visitCount = Math.floor(Math.random() * 10000) + 1000;
       document.getElementById('visit-counter').textContent = visitCount.toString().padStart(8, '0');
-      
-      // Implementation Instructions:
-      // 1. Create a simple PHP script that increments a counter in a file or database
-      // 2. Fetch this counter via AJAX or during page load
-      // 3. Or use a service like GoatCounter, SimpleAnalytics, or Counter.dev
     }
     
     // Initialize functionality
@@ -422,6 +584,24 @@
       fetchGitHubStars();
       fetchVisitCount();
     });
+    </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Fan SoundZzz",
+      "url": "https://fansoundzzz.com",
+      "description": "Free high-quality fan sounds for sleeping. Choose from table fan, ceiling fan, and box fan sounds to help you sleep better.",
+      "applicationCategory": "MultimediaApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "operatingSystem": "Web browser"
+    }
     </script>
 </body>
 

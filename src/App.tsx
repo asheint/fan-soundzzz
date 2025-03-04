@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useFanStore } from './store/fanStore';
+import { useEffect } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ControlPanel from './components/ControlPanel';
@@ -61,7 +60,7 @@ function App() {
         <main className="flex-grow">
           <HeroSection />
           
-          <section id="controls" className="py-16 px-4">
+          <section id="controls" className="pt-32 pb-16 px-4">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">

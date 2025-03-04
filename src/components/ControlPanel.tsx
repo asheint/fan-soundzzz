@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useFanStore, FanType } from '../store/fanStore';
 import { Play, Pause, Volume2, Clock, RotateCw } from 'lucide-react';
 
@@ -54,6 +54,7 @@ const ControlPanel = () => {
   };
   
   return (
+    
     <div className="glass p-6 rounded-2xl w-full max-w-3xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Fan Type Selection */}

@@ -45,8 +45,12 @@ const AudioController = () => {
     
     // Update audio sources based on fan type
     startSoundRef.current.src = `./sounds/${fanType}-fan-start.mp3`;
-    loopSoundRef.current.src = `./sounds/${fanType}-fan-loop.mp3`;
-    stopSoundRef.current.src = `./sounds/${fanType}-fan-stop.mp3`;
+    if (loopSoundRef.current) {
+      loopSoundRef.current.src = `./sounds/${fanType}-fan-loop.mp3`;
+    }
+    if (stopSoundRef.current) {
+      stopSoundRef.current.src = `./sounds/${fanType}-fan-stop.mp3`;
+    }
     
     // Set loop property
     if (loopSoundRef.current) {

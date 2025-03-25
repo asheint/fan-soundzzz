@@ -28,12 +28,14 @@ A modern web application that provides high-quality fan sounds for better sleep 
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/asheint/fan-soundzzz.git
 cd fan-soundzzz
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 # or
@@ -41,6 +43,7 @@ yarn install
 ```
 
 3. Start the development server
+
 ```bash
 npm run dev
 # or
@@ -62,6 +65,7 @@ yarn dev
 ## 📱 Features in Detail
 
 ### Audio Control
+
 - Multiple fan sound variations
 - Speed control
 - Volume adjustment
@@ -69,12 +73,14 @@ yarn dev
 - Timer functionality
 
 ### Visual Experience
+
 - Real-time 3D visualization
 - Particle effects
 - Smooth animations
 - Dark mode optimized
 
 ### User Experience
+
 - Persistent settings
 - PWA installation support
 - Responsive design
@@ -123,4 +129,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🤝 Support
 
-If you find this project helpful, consider buying me a coffee! You can also open an issue on GitHub for bug reports or feature requests. 
+If you find this project helpful, consider buying me a coffee! You can also open an issue on GitHub for bug reports or feature requests.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

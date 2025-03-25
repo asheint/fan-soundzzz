@@ -6,17 +6,17 @@ const Header = () => {
   const [starCount, setStarCount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchStarCount = async () => {
       try {
         setIsLoading(true);
         const response = await fetch('https://api.github.com/repos/asheint/fan-soundzzz');
-        
+
         if (!response.ok) {
           throw new Error('Could not fetch repository data');
         }
-        
+
         const data = await response.json();
         setStarCount(data.stargazers_count);
         setIsLoading(false);
@@ -26,15 +26,15 @@ const Header = () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchStarCount();
-    
+
     // Optional: Set up polling to update the star count periodically
     const intervalId = setInterval(fetchStarCount, 300000); // Update every 5 minutes
-    
+
     return () => clearInterval(intervalId);
   }, []);
-  
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -49,11 +49,11 @@ const Header = () => {
             Fan SoundZzz
           </h1>
         </div>
-        
+
         <div className="flex items-center gap-4">
-          <a 
-            href="https://github.com/asheint/fan-soundzzz" 
-            target="_blank" 
+          <a
+            href="https://github.com/asheint/fan-soundzzz"
+            target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 rounded-full glass hover:bg-indigo-900/30 transition-colors duration-300"
           >

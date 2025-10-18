@@ -1,0 +1,58 @@
+.menu {
+  position: fixed;
+  bottom: 48px;
+  left: 48px;
+  z-index: 9999;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    left: 32px;
+    bottom: 32px;
+  }
+}
+
+.nav-button {
+  z-index: 100;
+  cursor: pointer;
+
+  height: 32px;
+  width: 32px;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: background-color 0.4s, color 0.4s, border 0.4s;
+  border: 1px solid white;
+  color: white;
+  padding: 8px;
+
+  &:hover {
+    cursor: pointer;
+    color: #060606;
+    background-color: white;
+  }
+
+  &.light {
+    color: #060606;
+    border: 1px solid #060606;
+    background-color: transparent;
+
+    &:hover {
+      color: white;
+      background-color: #080808;
+    }
+  }
+}
+
+.first-row,
+.second-row {
+  display: flex;
+  justify-content: column;
+  gap: 12px;
+}

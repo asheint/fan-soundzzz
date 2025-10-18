@@ -1,0 +1,48 @@
+.logo {
+  position: fixed;
+  top: 5%;
+  left: 66px;
+  z-index: 40;
+
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+
+  .logo-text {
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: auto;
+    will-change: transform, opacity;
+  }
+
+  &.light {
+    color: white;
+    border: 1px solid #060606;
+    background-color: #060606;
+
+    .logo-image {
+      filter: invert(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    left: 32px;
+    top: 32px;
+  }
+}

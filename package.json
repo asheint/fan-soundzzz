@@ -1,39 +1,40 @@
 {
   "name": "fan-soundzzz",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && echo 'Build complete for deployment'"
   },
   "dependencies": {
-    "@react-three/drei": "^9.92.7",
-    "@react-three/fiber": "^8.15.12",
-    "framer-motion": "^10.16.16",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "three": "^0.160.0",
-    "zustand": "^4.4.7"
+    "@react-three/drei": "^10.0.0",
+    "@react-three/fiber": "^9.0.2",
+    "gsap": "^3.12.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-router": "^7.2.0",
+    "react-router-dom": "^7.2.0",
+    "react-transition-group": "^4.4.5",
+    "sass": "^1.85.1",
+    "three": "^0.173.0",
+    "tone": "^15.1.22",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.160.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2"
+    "@eslint/js": "^9.19.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "vite": "^6.1.0"
   }
 }

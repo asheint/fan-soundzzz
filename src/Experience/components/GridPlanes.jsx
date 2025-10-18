@@ -3,12 +3,52 @@ import React, { useMemo, useState, useRef, useEffect } from "react";
 import { useToggleRoomStore } from "../../stores/toggleRoomStore";
 import * as THREE from "three";
 import gsap from "gsap";
+import * as Tone from "tone";
+
+let synth = null;
+const initializeSynth = async () => {
+  if (!synth) {
+    await Tone.start();
+    
+    synth = new Tone.Synth({
+      oscillator: {
+        type: "sine2"
+      },
+      envelope: {
+        attack: 0.01,
+        decay: 1.5,
+        sustain: 0,
+        release: 2,
+      }
+    }).toDestination();
+    
+    const reverb = new Tone.Reverb({
+      decay: 5,
+      wet: 0.5,
+    }).toDestination();
+    
+    const filter = new Tone.Filter({
+      frequency: 2000,
+      type: "lowpass"
+    }).toDestination();
+    
+    synth.chain(filter, reverb);
+    synth.volume.value = -16;
+  }
+};
 
 const Plane = ({ position, planeDepth, planeWidth }) => {
   const meshRef = useRef();
   const [hovered, setHovered] = useState(false);
   const [opacity, setOpacity] = useState(0);
+  const lastPlayedRef = useRef(0);
   const { isDarkRoom, isTransitioning } = useToggleRoomStore();
+
+  const notes = useMemo(() => [
+    "C4", "D4", "E4", "G4", "A4",
+    "C5", "D5", "E5", "G5", "A5",
+    "C6", "E6", "G6"
+  ], []);
 
   const material = useMemo(() => {
     return new THREE.MeshStandardMaterial({
@@ -39,6 +79,21 @@ const Plane = ({ position, planeDepth, planeWidth }) => {
     });
   }, [isDarkRoom]);
 
+  const playNote = async () => {
+
+    const now = Date.now();
+    if (now - lastPlayedRef.current < 200) return;
+    lastPlayedRef.current = now;
+
+    await initializeSynth();
+
+    const randomNote = notes[Math.floor(Math.random() * notes.length)];
+    
+    if (synth) {
+      synth.triggerAttackRelease(randomNote, "2n");
+    }
+  };
+
   useFrame(() => {
     if (!meshRef.current) return;
     const targetOpacity = hovered ? 0.8 : 0;
@@ -60,6 +115,10 @@ const Plane = ({ position, planeDepth, planeWidth }) => {
       onPointerMove={() => {
         if (isTransitioning) return;
         setHovered(true);
+      }}
+      onPointerEnter={() => {
+        if (isTransitioning) return;
+        playNote();
       }}
       onPointerOut={() => {
         setHovered(false);

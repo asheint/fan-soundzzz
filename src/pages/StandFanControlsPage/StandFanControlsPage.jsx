@@ -8,7 +8,7 @@ const StandFanControlsPage = () => {
   return (
     <Page requireDarkRoom={true} customContent={true}>
       <FanController
-        title="Stand Fan Settings"
+        title="Stand Fan Controls"
         isRunning={isRunning}
         speed={speed}
         isOscillating={isOscillating}

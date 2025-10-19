@@ -5,6 +5,7 @@ import FanModelsPage from "../pages/FanModelsPage/FanModelsPage";
 import SupportUsPage from "../pages/SupportUsPage/SupportUsPage";
 import { Route, Routes } from "react-router";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import StandFanControlsPage from "../pages/StandFanControlsPage/StandFanControlsPage";
 
 const Router = () => {
   return (
@@ -30,6 +31,14 @@ const Router = () => {
         element={
           <TransitionComponent>
             <FanModelsPage />
+          </TransitionComponent>
+        }
+      />
+      <Route
+        path="stand-fan-controls"
+        element={
+          <TransitionComponent>
+            <StandFanControlsPage />
           </TransitionComponent>
         }
       />

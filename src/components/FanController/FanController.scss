@@ -1,0 +1,128 @@
+.fan-control-panel {
+  width: 100%;
+  max-width: 500px;
+  background-color: rgba(10, 10, 10, 0.98);
+  border: 2px solid #ffffff;
+  padding: 32px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+
+  @media (max-width: 768px) {
+    max-width: none;
+    padding: 24px;
+  }
+}
+
+.control-title {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 32px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.control-section {
+  margin-bottom: 28px;
+}
+
+.control-section-title {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.control-btn {
+  flex: 1;
+  padding: 16px 20px;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  &:hover:not(:disabled) {
+    background-color: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+
+  &.active {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.status-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #666666;
+  transition: all 0.3s ease;
+
+  &.running {
+    background-color: #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+    animation: pulse 2s infinite;
+  }
+}
+
+.status-text {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 8px 16px;
+  background-color: rgba(0, 255, 0, 0.2);
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

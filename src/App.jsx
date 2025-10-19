@@ -9,6 +9,7 @@ import Menu from "./components/Menu/Menu";
 import Router from "./routes/Router";
 import Overlay from "./components/Overlay/Overlay";
 import Logo from "./components/Logo/Logo";
+import SoundToggle from "./components/SoundToggle/SoundToggle";
 
 function App() {
   const { updateDimensions } = useResponsiveStore();
@@ -26,6 +27,7 @@ function App() {
       <Menu />
       <Logo />
       <LoadingPage />
+      <SoundToggle />
       {/* <RoomToggleButton /> */}
       <Overlay />
       <Router />

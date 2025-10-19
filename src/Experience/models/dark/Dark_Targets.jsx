@@ -12,81 +12,65 @@ import { useNavigate } from "react-router";
 export default function Model(props) {
   let navigate = useNavigate();
 
-  const { nodes } = useGLTF("/models/Dark Room/Dark_Targets.glb");
+  const { nodes: fanNodes } = useGLTF("/models/Dark Room/StandFan_Target.glb");
 
-  const whiteMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const whiteMaterial = new THREE.MeshBasicMaterial({ 
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0
+  });
 
   const aboutAnimRef = useRef();
   const devWorkAnimRef = useRef();
+  const fanAnimRef = useRef();
 
   const animationPairs = {
     About_Hitbox: { ref: aboutAnimRef },
     Dev_Work_Hitbox: { ref: devWorkAnimRef },
+    Fan_Hitbox: { ref: fanAnimRef }
   };
 
   //Handle Hover
   const onHover = (key, isHovering) => {
     const animObject = animationPairs[key];
-    gsap.to(animObject.ref.current.scale, {
-      x: isHovering ? 1 : 0,
-      y: isHovering ? 1 : 0,
-      z: isHovering ? 1 : 0,
+    gsap.to(animObject.ref.current.material, {
+      opacity: isHovering ? 1 : 0,
       duration: 0.5,
     });
   };
 
   return (
     <group {...props} dispose={null}>
+
       <mesh
-        geometry={nodes.About_Hitbox.geometry}
-        material={nodes.About_Hitbox.material}
+        geometry={fanNodes.Stand_Fan_Hitbox.geometry}
+        material={fanNodes.Stand_Fan_Hitbox.material}
         visible={false}
-        position={[0.679, 1.571 - 0.02, -1.368]}
+        position={[1.07, 0.817, 0.307]}
+        rotation={[0, 0.932, 0]}
+        scale={[0.413, 1.278, 0.557]}
         onPointerOver={() => {
-          onHover("About_Hitbox", true);
+          onHover("Fan_Hitbox", true);
           document.body.style.cursor = "pointer";
         }}
         onPointerOut={() => {
-          onHover("About_Hitbox", false);
+          onHover("Fan_Hitbox", false);
           document.body.style.cursor = "auto";
         }}
         onClick={() => {
-          navigate("/about");
+          navigate("/stand-fan-controls");
         }}
       />
       <mesh
-        ref={aboutAnimRef}
-        geometry={nodes.About_Hitbox_Anim.geometry}
+        ref={fanAnimRef}
+        geometry={fanNodes.Stand_Fan_HitBox_Anim.geometry}
         material={whiteMaterial}
-        scale={[0, 0, 0]}
-        position={[0.679, 1.571 - 0.02, -1.368]}
-      />
-      <mesh
-        geometry={nodes.Dev_Work_Hitbox.geometry}
-        material={nodes.Dev_Work_Hitbox.material}
-        visible={false}
-        position={[-0.457, 0.597 - 0.02, 1.021]}
-        onPointerOver={() => {
-          onHover("Dev_Work_Hitbox", true);
-          document.body.style.cursor = "pointer";
-        }}
-        onPointerOut={() => {
-          onHover("Dev_Work_Hitbox", false);
-          document.body.style.cursor = "auto";
-        }}
-        onClick={() => {
-          navigate("/dev-work");
-        }}
-      />
-      <mesh
-        ref={devWorkAnimRef}
-        geometry={nodes.Dev_Work_Hitbox_Anim.geometry}
-        material={whiteMaterial}
-        scale={[0, 0, 0]}
-        position={[-1.298, 1.166, 1.75]}
+        position={[1.189, 1.544, 0.828]}
+        rotation={[0, 0.932, 0]}
+        scale={[0.413, 1.278, 0.557]}
       />
     </group>
   );
 }
 
-useGLTF.preload("/models/Dark Room/Dark_Targets.glb");
+useGLTF.preload("/models/Dark Room/StandFan_Target.glb");

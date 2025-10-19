@@ -38,7 +38,7 @@ const FanController = ({
       </div>
 
       {/* Speed Controls */}
-      {showSpeedControl && (
+      {/* {showSpeedControl && (
         <div className="control-section">
           <h3 className="control-section-title">Speed Level</h3>
           <div className="control-buttons">
@@ -65,10 +65,10 @@ const FanController = ({
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Oscillation Control */}
-      {showOscillationControl && (
+      {/* {showOscillationControl && (
         <div className="control-section">
           <h3 className="control-section-title">Oscillation</h3>
           <div className="control-buttons">
@@ -81,7 +81,7 @@ const FanController = ({
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Status Indicator */}
       <div className="status-section">

@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import * as THREE from "three";
 
 import DarkRoomFirst from "./models/dark/Dark_First";
@@ -12,7 +12,7 @@ import LightRoomFourth from "./models/light/Light_Fourth";
 import DarkTargets from "./models/dark/Dark_Targets";
 import LightTargets from "./models/light/Light_Targets";
 import GridPlanes from "./components/GridPlanes";
-
+import StandFan from "./models/dark/Stand_Fan";
 import { useToggleRoomStore } from "../stores/toggleRoomStore";
 
 import gsap from "gsap";
@@ -73,6 +73,7 @@ const Scene = ({ pointerRef }) => {
           <DarkRoomThird />
           <DarkRoomFourth />
           <DarkTargets />
+          <StandFan />
         </group>
 
         <group ref={lightGroupRef} position={lightRoomGroupPosition}>

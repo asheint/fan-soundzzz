@@ -5,7 +5,7 @@ import { useToggleRoomStore } from "../stores/toggleRoomStore";
 import { usePageTransitionStore } from "../stores/pageTransitionStore";
 import gsap from "gsap";
 
-const Page = ({ requireDarkRoom, panelContent, imageSrc }) => {
+const Page = ({ requireDarkRoom, panelContent, imageSrc, customContent, children }) => {
   const { isDarkRoom, setDarkRoom } = useToggleRoomStore();
   const { isEntering, delay } = usePageTransitionStore();
 
@@ -28,7 +28,7 @@ const Page = ({ requireDarkRoom, panelContent, imageSrc }) => {
   }, [isDarkRoom]);
 
   useEffect(() => {
-    if (isEntering) {
+    if (isEntering && !customContent) {
       gsap.set([headerRef.current, quoteRef.current, ...contentRefs.current], {
         opacity: 0,
         y: 20,
@@ -70,7 +70,7 @@ const Page = ({ requireDarkRoom, panelContent, imageSrc }) => {
         );
       });
     }
-  }, [isEntering]);
+  }, [isEntering, customContent]);
 
   useEffect(() => {
     const scrollContainer = innerWrapperRef.current;
@@ -123,7 +123,6 @@ const Page = ({ requireDarkRoom, panelContent, imageSrc }) => {
         scrollValues.current.current * (1 - scrollValues.current.ease) +
         scrollValues.current.target * scrollValues.current.ease;
 
-      // Apply the scroll
       if (scrollContainer) {
         scrollContainer.scrollTop = scrollValues.current.current;
       }
@@ -169,30 +168,39 @@ const Page = ({ requireDarkRoom, panelContent, imageSrc }) => {
         </button>
         <div className="side-panel-wrapper">
           <div className="side-panel-inner-wrapper" ref={innerWrapperRef}>
-            <div className="side-panel-image-wrapper">
-              <img src={imageSrc} className="side-panel-image" />
-            </div>
-            <div className="side-panel-content-wrapper">
-              {panelContent && (
-                <>
-                  <h1 className="panel-header" ref={headerRef}>
-                    {panelContent.title}
-                  </h1>
-                  <h3 className="panel-quote" ref={quoteRef}>
-                    {panelContent.quote}
-                  </h3>
-                  {panelContent.content.map((text, index) => (
-                    <p
-                      key={index}
-                      className="panel-content-text"
-                      ref={(el) => (contentRefs.current[index] = el)}
-                    >
-                      {text}
-                    </p>
-                  ))}
-                </>
-              )}
-            </div>
+            
+            {customContent ? (
+              <div className="side-panel-custom-content">
+                {children}
+              </div>
+            ) : (
+              <>
+                <div className="side-panel-image-wrapper">
+                  <img src={imageSrc} className="side-panel-image" />
+                </div>
+                <div className="side-panel-content-wrapper">
+                  {panelContent && (
+                    <>
+                      <h1 className="panel-header" ref={headerRef}>
+                        {panelContent.title}
+                      </h1>
+                      <h3 className="panel-quote" ref={quoteRef}>
+                        {panelContent.quote}
+                      </h3>
+                      {panelContent.content.map((text, index) => (
+                        <p
+                          key={index}
+                          className="panel-content-text"
+                          ref={(el) => (contentRefs.current[index] = el)}
+                        >
+                          {text}
+                        </p>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

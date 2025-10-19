@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import { useToggleRoomStore } from "../../stores/toggleRoomStore";
+import { useSoundStore } from "../../stores/soundStore";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as Tone from "tone";
@@ -43,6 +44,7 @@ const Plane = ({ position, planeDepth, planeWidth }) => {
   const [opacity, setOpacity] = useState(0);
   const lastPlayedRef = useRef(0);
   const { isDarkRoom, isTransitioning } = useToggleRoomStore();
+  const { isSoundEnabled } = useSoundStore();
 
   const notes = useMemo(() => [
     "C4", "D4", "E4", "G4", "A4",
@@ -80,6 +82,7 @@ const Plane = ({ position, planeDepth, planeWidth }) => {
   }, [isDarkRoom]);
 
   const playNote = async () => {
+    if (!isSoundEnabled) return;
 
     const now = Date.now();
     if (now - lastPlayedRef.current < 200) return;

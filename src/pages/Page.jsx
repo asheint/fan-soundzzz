@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import "./Page.scss";
 import { useNavigate } from "react-router";
 import { useToggleRoomStore } from "../stores/toggleRoomStore";
@@ -175,9 +175,11 @@ const Page = ({ requireDarkRoom, panelContent, imageSrc, customContent, children
               </div>
             ) : (
               <>
-                <div className="side-panel-image-wrapper">
-                  <img src={imageSrc} className="side-panel-image" />
-                </div>
+                {imageSrc && (
+                  <div className="side-panel-image-wrapper">
+                    <img src={imageSrc} className="side-panel-image" />
+                  </div>
+                )}
                 <div className="side-panel-content-wrapper">
                   {panelContent && (
                     <>

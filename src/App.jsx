@@ -1,6 +1,7 @@
 import "./App.scss";
 import { useEffect } from "react";
 // import RoomToggleButton from "./components/Buttons/RoomToggleButton/RoomToggleButton";
+// import CookieConsent from "./components/CookieConsent/CookieConsent";
 import Experience from "./Experience/Experience";
 
 import { useResponsiveStore } from "./stores/useResponsiveStore";
@@ -11,7 +12,8 @@ import Overlay from "./components/Overlay/Overlay";
 import Logo from "./components/Logo/Logo";
 import SoundToggle from "./components/SoundToggle/SoundToggle";
 import FeedbackButton from "./components/FeedbackButton/FeedbackButton";
-// import CookieConsent from "./components/CookieConsent/CookieConsent";
+import FeedbackLabel from "./components/FeedbackLabel/FeedbackLabel";
+import FeedbackPopup from "./components/FeedbackPopup/FeedbackPopup";
 
 function App() {
   const { updateDimensions } = useResponsiveStore();
@@ -29,9 +31,11 @@ function App() {
       <Menu />
       <Logo />
       <LoadingPage />
+      {/* <RoomToggleButton /> */}
       <SoundToggle />
       <FeedbackButton />
-      {/* <RoomToggleButton /> */}
+      <FeedbackLabel />
+      {/* <FeedbackPopup /> */}
       <Overlay />
       <Router />
       <Experience />

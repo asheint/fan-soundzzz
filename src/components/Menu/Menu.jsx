@@ -35,13 +35,13 @@ const Menu = () => {
           <NavLink to="/">
             <FaHome className={buttonClassNames} size={15} />
           </NavLink>
-          <NavLink to="/fan-models">
-            <FaFan className={buttonClassNames} size={15} />
+          <NavLink to="/about">
+            <FaInfo className={buttonClassNames} size={15} />
           </NavLink>
         </div>
         <div className="second-row">
-          <NavLink to="/about">
-            <FaInfo className={buttonClassNames} size={15} />
+          <NavLink to="/fan-models">
+            <FaFan className={buttonClassNames} size={15} />
           </NavLink>
           <NavLink to="/support-us">
             <FaHeart className={buttonClassNames} size={15} />

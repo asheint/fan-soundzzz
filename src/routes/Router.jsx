@@ -3,6 +3,7 @@ import TransitionComponent from "../components/Transition";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import FanModelsPage from "../pages/FanModelsPage/FanModelsPage";
 import SupportUsPage from "../pages/SupportUsPage/SupportUsPage";
+import FeedbackPage from "../pages/FeedbackPage/FeedbackPage";
 import { Route, Routes } from "react-router";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import StandFanControlsPage from "../pages/StandFanControlsPage/StandFanControlsPage";
@@ -47,6 +48,14 @@ const Router = () => {
         element={
           <TransitionComponent>
             <SupportUsPage />
+          </TransitionComponent>
+        }
+      />
+      <Route
+        path="feedback"
+        element={
+          <TransitionComponent>
+            <FeedbackPage />
           </TransitionComponent>
         }
       />

@@ -10,6 +10,8 @@ import Router from "./routes/Router";
 import Overlay from "./components/Overlay/Overlay";
 import Logo from "./components/Logo/Logo";
 import SoundToggle from "./components/SoundToggle/SoundToggle";
+import FeedbackButton from "./components/FeedbackButton/FeedbackButton";
+// import CookieConsent from "./components/CookieConsent/CookieConsent";
 
 function App() {
   const { updateDimensions } = useResponsiveStore();
@@ -28,10 +30,12 @@ function App() {
       <Logo />
       <LoadingPage />
       <SoundToggle />
+      <FeedbackButton />
       {/* <RoomToggleButton /> */}
       <Overlay />
       <Router />
       <Experience />
+      {/* <CookieConsent /> */}
     </>
   );
 }

@@ -32,17 +32,11 @@ const FeedbackPopup = () => {
   useEffect(() => {
     if (isRunning && !startTimeRef.current) {
       startTimeRef.current = Date.now();
-      console.log('🌀 Fan STARTED at:', new Date(startTimeRef.current).toLocaleTimeString());
     } else if (!isRunning && startTimeRef.current) {
       const stopTime = Date.now();
       const usageTime = stopTime - startTimeRef.current;
       const currentUsage = parseInt(sessionStorage.getItem('fan-usage-time') || '0');
       const newTotalUsage = currentUsage + usageTime;
-      
-      console.log('⏹️ Fan STOPPED at:', new Date(stopTime).toLocaleTimeString());
-      console.log('⏱️ Duration (this session):', (usageTime / 1000).toFixed(2), 'seconds');
-      console.log('📊 Total accumulated time:', (newTotalUsage / 1000).toFixed(2), 'seconds');
-      console.log('✅ Popup threshold (10s):', newTotalUsage > 10000 ? 'MET' : 'NOT MET');
       
       sessionStorage.setItem('fan-usage-time', newTotalUsage.toString());
       startTimeRef.current = null;

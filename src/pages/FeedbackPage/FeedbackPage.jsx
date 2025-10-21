@@ -68,21 +68,22 @@ const FeedbackPage = () => {
                 </svg>
               </div>
               <div className="intro-content">
-                <h3>We'd Love to Hear From You</h3>
-                <p>All thoughts and suggestions are welcome!</p>
+                <h3>What's Working? What's Not?</h3>
+                <p>Fan SoundZzz is in beta, and honestly, I need to know if this is actually useful to you. Your real thoughts help me decide what to build next.</p>
               </div>
             </div>
 
             <form onSubmit={handleSubmit} className="feedback-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Your Name</label>
                   <input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    placeholder="Just your first name is fine"
                     required
                   />
                 </div>
@@ -94,13 +95,14 @@ const FeedbackPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    placeholder="In case I need to follow up"
                     required
                   />
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="subject">Subject</label>
+                <label htmlFor="subject">What's this about?</label>
                 <select
                   id="subject"
                   name="subject"
@@ -108,30 +110,30 @@ const FeedbackPage = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select a topic...</option>
-                  <option value="bug-report">Bug Report</option>
-                  <option value="feature-request">Feature Request</option>
-                  <option value="sound-quality">Sound Quality Feedback</option>
-                  <option value="user-experience">User Experience</option>
-                  <option value="general">General Feedback</option>
+                  <option value="">Pick one...</option>
+                  <option value="general">Just sharing thoughts</option>
+                  <option value="feature-request">I have an idea</option>
+                  <option value="sound-quality">About the sound</option>
+                  <option value="bug-report">Something's broken</option>
+                  <option value="user-experience">Using the app</option>
                 </select>
               </div>
 
               <div className="form-group">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">Tell Me Everything</label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="6"
-                  placeholder="Tell us what you think..."
+                  placeholder="Does this help you? Be honest—I can take it."
                   required
                 ></textarea>
               </div>
 
               <button type="submit" className="submit-button" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Feedback"}
+                {isSubmitting ? "Sending..." : "Send It"}
               </button>
             </form>
           </div>
@@ -142,13 +144,13 @@ const FeedbackPage = () => {
                 <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
               </svg>
             </div>
-            <h3>Thank You!</h3>
-            <p>Your feedback has been sent successfully. We appreciate you taking the time to help us improve Fan SoundZzz.</p>
+            <h3>Got It, Thanks!</h3>
+            <p>Seriously, this means a lot. I read every message and your feedback directly shapes what gets built next.</p>
             <button 
               className="back-button" 
               onClick={() => setIsSubmitted(false)}
             >
-              Send Another Feedback
+              Send More Thoughts
             </button>
           </div>
         )}

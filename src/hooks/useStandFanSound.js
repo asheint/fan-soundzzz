@@ -5,12 +5,13 @@ export const useStandFanSound = (isRunning, speed, fanType = 'stand-fan') => {
   const loopSoundRef = useRef(null);
   const stopSoundRef = useRef(null);
   const isTransitioningRef = useRef(false);
+  const hasStartedRef = useRef(false);
 
   useEffect(() => {
 
-    startSoundRef.current = new Audio(`/sounds/${fanType}/start.mp3`);
-    loopSoundRef.current = new Audio(`/sounds/${fanType}/loop.mp3`);
-    stopSoundRef.current = new Audio(`/sounds/${fanType}/stop.mp3`);
+    startSoundRef.current = new Audio(`/sounds/${fanType}/start.ogg`);
+    loopSoundRef.current = new Audio(`/sounds/${fanType}/loop.ogg`);
+    stopSoundRef.current = new Audio(`/sounds/${fanType}/stop.ogg`);
 
     loopSoundRef.current.loop = true;
 
@@ -46,8 +47,9 @@ export const useStandFanSound = (isRunning, speed, fanType = 'stand-fan') => {
     if (isTransitioningRef.current) return;
 
     if (isRunning) {
+      hasStartedRef.current = true;
       startFan();
-    } else {
+    } else if (hasStartedRef.current) {
       stopFan();
     }
   }, [isRunning]);
@@ -90,41 +92,29 @@ export const useStandFanSound = (isRunning, speed, fanType = 'stand-fan') => {
     isTransitioningRef.current = true;
 
     try {
-
+      // Stop the loop sound immediately
       if (loopSoundRef.current && !loopSoundRef.current.paused) {
-        const fadeOutDuration = 1000;
-        const fadeSteps = 20;
-        const fadeInterval = fadeOutDuration / fadeSteps;
-        const volumeStep = loopSoundRef.current.volume / fadeSteps;
-
-        const fadeOut = setInterval(() => {
-          if (loopSoundRef.current.volume > volumeStep) {
-            loopSoundRef.current.volume -= volumeStep;
-          } else {
-            loopSoundRef.current.volume = 0;
-            loopSoundRef.current.pause();
-            clearInterval(fadeOut);
-
-            if (stopSoundRef.current) {
-              stopSoundRef.current.currentTime = 0;
-              stopSoundRef.current.volume = 1.0;
-              stopSoundRef.current.play();
-              
-              stopSoundRef.current.onended = () => {
-                isTransitioningRef.current = false;
-              };
-            } else {
-              isTransitioningRef.current = false;
-            }
-          }
-        }, fadeInterval);
-      } else {
-        isTransitioningRef.current = false;
+        loopSoundRef.current.pause();
+        loopSoundRef.current.currentTime = 0;
       }
 
+      // Stop the start sound if it's playing
       if (startSoundRef.current && !startSoundRef.current.paused) {
         startSoundRef.current.pause();
         startSoundRef.current.currentTime = 0;
+      }
+
+      // Play stop sound
+      if (stopSoundRef.current) {
+        stopSoundRef.current.currentTime = 0;
+        stopSoundRef.current.volume = 1.0;
+        await stopSoundRef.current.play();
+        
+        stopSoundRef.current.onended = () => {
+          isTransitioningRef.current = false;
+        };
+      } else {
+        isTransitioningRef.current = false;
       }
     } catch (error) {
       console.error('Error stopping fan sound:', error);

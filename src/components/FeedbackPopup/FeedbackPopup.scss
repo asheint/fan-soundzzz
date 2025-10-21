@@ -1,0 +1,141 @@
+.feedback-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  max-width: 360px;
+  width: calc(100% - 60px);
+  
+  .popup-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    
+    .popup-text {
+      margin-bottom: 20px;
+      
+      h4 {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0 0 10px 0;
+      }
+      
+      .main-question {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        margin: 0 0 8px 0;
+        line-height: 1.5;
+      }
+      
+      .sub-text {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin: 0;
+        line-height: 1.5;
+        text-align: justify;
+      }
+    }
+    
+    .popup-buttons {
+      display: flex;
+      gap: 12px;
+      
+      .popup-btn {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &.dismiss {
+          background: rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+          }
+        }
+        
+        &.feedback {
+          background: #ffffff;
+          color: #000000;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+          }
+        }
+      }
+    }
+  }
+  
+  // Light theme
+  &.light .popup-content {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    
+    .popup-text {
+      h4 {
+        color: #000000;
+      }
+      
+      .main-question {
+        color: rgba(0, 0, 0, 0.85);
+      }
+      
+      .sub-text {
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    
+    .popup-buttons {
+      .popup-btn {
+        &.dismiss {
+          background: rgba(0, 0, 0, 0.1);
+          color: rgba(0, 0, 0, 0.6);
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          
+          &:hover {
+            background: rgba(0, 0, 0, 0.15);
+          }
+        }
+        
+        &.feedback {
+          background: #000000;
+          color: #ffffff;
+          
+          &:hover {
+            background: rgba(0, 0, 0, 0.9);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-popup {
+    .popup-content {
+      padding: 20px;
+      
+      .popup-buttons {
+        flex-direction: column;
+        
+        .popup-btn {
+          padding: 12px 16px;
+        }
+      }
+    }
+  }
+}

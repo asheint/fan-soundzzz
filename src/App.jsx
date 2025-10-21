@@ -35,7 +35,7 @@ function App() {
       <SoundToggle />
       <FeedbackButton />
       <FeedbackLabel />
-      {/* <FeedbackPopup /> */}
+      <FeedbackPopup />
       <Overlay />
       <Router />
       <Experience />

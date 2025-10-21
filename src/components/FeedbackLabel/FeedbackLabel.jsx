@@ -77,8 +77,8 @@ const FeedbackLabel = () => {
           aria-label="Dismiss feedback label"
         >
           <svg
-            width="12"
-            height="12"
+            width="10"
+            height="10"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

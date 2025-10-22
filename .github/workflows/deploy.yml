@@ -23,6 +23,12 @@ jobs:
         with:
           version: 8
 
+      - name: Create .env file
+        run: |
+          echo VITE_EMAILJS_SERVICE_ID=${{ secrets.VITE_EMAILJS_SERVICE_ID }} >> .env
+          echo VITE_EMAILJS_TEMPLATE_ID=${{ secrets.VITE_EMAILJS_TEMPLATE_ID }} >> .env
+          echo VITE_EMAILJS_PUBLIC_KEY=${{ secrets.VITE_EMAILJS_PUBLIC_KEY }} >> .env
+
       - name: Install dependencies
         run: pnpm install
 

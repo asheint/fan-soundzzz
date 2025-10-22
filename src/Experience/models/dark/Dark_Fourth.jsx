@@ -4,8 +4,8 @@ Command: npx gltfjsx@6.5.3 Dark_Fourth.glb
 */
 
 import React from "react";
-import { useGLTFWithKTX2 } from "../../utils/useGLTFWithKTX2";
-import { convertMaterialsToBasic } from "../../utils/convertToBasic";
+import { useGLTFWithKTX2 } from "../../../utils/useGLTFWithKTX2";
+import { convertMaterialsToBasic } from "../../../utils/convertToBasic";
 
 export default function Model(props) {
   const { nodes, materials } = useGLTFWithKTX2(

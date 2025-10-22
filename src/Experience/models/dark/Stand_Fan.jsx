@@ -10,12 +10,9 @@ export default function StandFan(props) {
   
   const { nodes, materials, animations } = useGLTF('/models/Dark Room/Stand_Fan.glb');
   const { actions } = useAnimations(animations, group);
-  
-  // Remove the basic material conversion - use original materials
-  // const newMaterials = convertMaterialsToBasic(materials);
-  
-  const { 
-    isRunning, 
+
+  const {
+    isRunning,
     isStopping,
     speed, 
     isOscillating,

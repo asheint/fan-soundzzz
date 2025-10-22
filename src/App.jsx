@@ -1,7 +1,7 @@
 import "./App.scss";
 import { useEffect } from "react";
 // import RoomToggleButton from "./components/Buttons/RoomToggleButton/RoomToggleButton";
-// import CookieConsent from "./components/CookieConsent/CookieConsent";
+import CookieConsent from "./components/CookieConsent/CookieConsent";
 import Experience from "./Experience/Experience";
 
 import { useResponsiveStore } from "./stores/useResponsiveStore";
@@ -39,7 +39,7 @@ function App() {
       <Overlay />
       <Router />
       <Experience />
-      {/* <CookieConsent /> */}
+      <CookieConsent />
     </>
   );
 }

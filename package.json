@@ -23,6 +23,7 @@
     "react-transition-group": "^4.4.5",
     "sass": "^1.85.1",
     "three": "^0.173.0",
+    "three-stdlib": "^2.36.0",
     "tone": "^15.1.22",
     "zustand": "^5.0.3"
   },

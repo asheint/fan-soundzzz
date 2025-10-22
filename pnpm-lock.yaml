@@ -44,6 +44,9 @@ importers:
       three:
         specifier: ^0.173.0
         version: 0.173.0
+      three-stdlib:
+        specifier: ^2.36.0
+        version: 2.36.0(three@0.173.0)
       tone:
         specifier: ^15.1.22
         version: 15.1.22

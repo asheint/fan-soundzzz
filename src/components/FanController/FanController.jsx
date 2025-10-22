@@ -1,4 +1,5 @@
 import "./FanController.scss";
+import { useTickSound } from "../../hooks/useTickSound";
 
 const FanController = ({ 
   title,
@@ -12,6 +13,8 @@ const FanController = ({
   showSpeedControl = true,
   showOscillationControl = true 
 }) => {
+  const playTick = useTickSound();
+
   return (
     <div className="fan-control-panel">
       <h2 className="control-title">{title}</h2>
@@ -22,14 +25,14 @@ const FanController = ({
         <div className="control-buttons">
           <button 
             className={`control-btn ${isRunning ? 'active' : ''}`}
-            onClick={startFan}
+            onClick={() => { startFan(); playTick(); }}
             disabled={isRunning}
           >
             Start
           </button>
           <button 
             className={`control-btn ${!isRunning ? 'active' : ''}`}
-            onClick={stopFan}
+            onClick={() => { stopFan(); playTick(); }}
             disabled={!isRunning}
           >
             Stop

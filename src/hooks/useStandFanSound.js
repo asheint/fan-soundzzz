@@ -1,126 +1,119 @@
 import { useEffect, useRef } from 'react';
 
+const OVERLAP_TIME = 0.1;
+
 export const useStandFanSound = (isRunning, speed, fanType = 'stand-fan') => {
-  const startSoundRef = useRef(null);
-  const loopSoundRef = useRef(null);
-  const stopSoundRef = useRef(null);
+  const isInitializedRef = useRef(false);
   const isTransitioningRef = useRef(false);
-  const hasStartedRef = useRef(false);
+  const currentStateRef = useRef('stopped');
+  const audioCtxRef = useRef(null);
+  const bufferRef = useRef(null);
+  const playingRef = useRef(false);
+  const sourceRef = useRef(null);
+  const gainRef = useRef(null);
 
   useEffect(() => {
-
-    startSoundRef.current = new Audio(`/sounds/${fanType}/start.ogg`);
-    loopSoundRef.current = new Audio(`/sounds/${fanType}/loop.ogg`);
-    stopSoundRef.current = new Audio(`/sounds/${fanType}/stop.ogg`);
-
-    loopSoundRef.current.loop = true;
+    const loadBuffer = async () => {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const res = await fetch(`/sounds/${fanType}/loop.ogg`);
+      const arrayBuffer = await res.arrayBuffer();
+      bufferRef.current = await audioCtxRef.current.decodeAudioData(arrayBuffer);
+      isInitializedRef.current = true;
+    };
+    loadBuffer();
 
     return () => {
-      if (startSoundRef.current) {
-        startSoundRef.current.pause();
-        startSoundRef.current = null;
+      stopLoop();
+      if (audioCtxRef.current) {
+        audioCtxRef.current.close();
+        audioCtxRef.current = null;
       }
-      if (loopSoundRef.current) {
-        loopSoundRef.current.pause();
-        loopSoundRef.current = null;
-      }
-      if (stopSoundRef.current) {
-        stopSoundRef.current.pause();
-        stopSoundRef.current = null;
-      }
+      bufferRef.current = null;
     };
   }, [fanType]);
 
-  useEffect(() => {
-    if (!loopSoundRef.current || !isRunning) return;
+  const startLoopWithOverlap = async () => {
+    if (!audioCtxRef.current || !bufferRef.current) return;
+    if (audioCtxRef.current.state === "suspended") {
+      await audioCtxRef.current.resume();
+    }
+    let loopDuration = bufferRef.current.duration;
+    playingRef.current = true;
 
-    const speedRates = {
-      1: 0.8,
-      2: 1.0,
-      3: 1.2
+    if (!gainRef.current) {
+      gainRef.current = audioCtxRef.current.createGain();
+      gainRef.current.gain.value = 0;
+      gainRef.current.connect(audioCtxRef.current.destination);
+    }
+
+    const playSource = () => {
+      if (!playingRef.current) return;
+      const source = audioCtxRef.current.createBufferSource();
+      source.buffer = bufferRef.current;
+      source.connect(gainRef.current);
+      source.start();
+      sourceRef.current = source;
+
+      setTimeout(playSource, (loopDuration - OVERLAP_TIME) * 1000);
     };
 
-    loopSoundRef.current.playbackRate = speedRates[speed] || 1.0;
-  }, [speed, isRunning]);
+    playSource();
+
+    gainRef.current.gain.cancelScheduledValues(audioCtxRef.current.currentTime);
+    gainRef.current.gain.setValueAtTime(0, audioCtxRef.current.currentTime);
+    gainRef.current.gain.linearRampToValueAtTime(1, audioCtxRef.current.currentTime + 1);
+  };
+
+  const stopLoop = () => {
+    playingRef.current = false;
+    if (gainRef.current) {
+      const ctx = audioCtxRef.current;
+
+      gainRef.current.gain.cancelScheduledValues(ctx.currentTime);
+      gainRef.current.gain.setValueAtTime(gainRef.current.gain.value, ctx.currentTime);
+      gainRef.current.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+
+      setTimeout(() => {
+        if (sourceRef.current) {
+          try { sourceRef.current.stop(); } catch (e) {}
+          sourceRef.current.disconnect();
+          sourceRef.current = null;
+        }
+        gainRef.current.disconnect();
+        gainRef.current = null;
+      }, 1000);
+    } else {
+      if (sourceRef.current) {
+        try { sourceRef.current.stop(); } catch (e) {}
+        sourceRef.current.disconnect();
+        sourceRef.current = null;
+      }
+    }
+  };
 
   useEffect(() => {
+    if (!isInitializedRef.current) return;
     if (isTransitioningRef.current) return;
 
-    if (isRunning) {
-      hasStartedRef.current = true;
-      startFan();
-    } else if (hasStartedRef.current) {
-      stopFan();
+    if (isRunning && currentStateRef.current === 'stopped') {
+      isTransitioningRef.current = true;
+      currentStateRef.current = 'running';
+      startLoopWithOverlap();
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 800);
+    } else if (!isRunning && currentStateRef.current === 'running') {
+      isTransitioningRef.current = true;
+      currentStateRef.current = 'stopping';
+      stopLoop();
+      setTimeout(() => {
+        currentStateRef.current = 'stopped';
+        isTransitioningRef.current = false;
+      }, 1500);
     }
   }, [isRunning]);
-
-  const startFan = async () => {
-    if (isTransitioningRef.current) return;
-    isTransitioningRef.current = true;
-
-    try {
-
-      if (stopSoundRef.current) {
-        stopSoundRef.current.pause();
-        stopSoundRef.current.currentTime = 0;
-      }
-
-      startSoundRef.current.currentTime = 0;
-      startSoundRef.current.volume = 1.0;
-      await startSoundRef.current.play();
-
-      startSoundRef.current.onended = async () => {
-        if (isRunning && loopSoundRef.current) {
-          loopSoundRef.current.currentTime = 0;
-          loopSoundRef.current.volume = 1.0;
-          
-          const speedRates = { 1: 0.8, 2: 1.0, 3: 1.2 };
-          loopSoundRef.current.playbackRate = speedRates[speed] || 1.0;
-          
-          await loopSoundRef.current.play();
-        }
-        isTransitioningRef.current = false;
-      };
-    } catch (error) {
-      console.error('Error playing start sound:', error);
-      isTransitioningRef.current = false;
-    }
-  };
-
-  const stopFan = async () => {
-    if (isTransitioningRef.current) return;
-    isTransitioningRef.current = true;
-
-    try {
-      // Stop the loop sound immediately
-      if (loopSoundRef.current && !loopSoundRef.current.paused) {
-        loopSoundRef.current.pause();
-        loopSoundRef.current.currentTime = 0;
-      }
-
-      // Stop the start sound if it's playing
-      if (startSoundRef.current && !startSoundRef.current.paused) {
-        startSoundRef.current.pause();
-        startSoundRef.current.currentTime = 0;
-      }
-
-      // Play stop sound
-      if (stopSoundRef.current) {
-        stopSoundRef.current.currentTime = 0;
-        stopSoundRef.current.volume = 1.0;
-        await stopSoundRef.current.play();
-        
-        stopSoundRef.current.onended = () => {
-          isTransitioningRef.current = false;
-        };
-      } else {
-        isTransitioningRef.current = false;
-      }
-    } catch (error) {
-      console.error('Error stopping fan sound:', error);
-      isTransitioningRef.current = false;
-    }
-  };
 
   return null;
 };

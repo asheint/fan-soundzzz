@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Page from "../Page";
 import "./AboutPage.scss";
 import { BsChatRightDotsFill } from "react-icons/bs";
@@ -9,6 +10,14 @@ import { FaRegQuestionCircle, FaHandHoldingHeart } from "react-icons/fa";
 const AboutPage = () => {
   return (
     <>
+      <Helmet>
+        <title>About | Fan SoundZzz</title>
+        <meta name="description" content="Learn about Fan SoundZzz — the story behind the app, the science of fan white noise for sleep, and how it helps you fall asleep faster." />
+        <link rel="canonical" href="https://fansoundzzz.com/about" />
+        <meta property="og:url" content="https://fansoundzzz.com/about" />
+        <meta property="og:title" content="About | Fan SoundZzz" />
+        <meta property="og:description" content="Learn about Fan SoundZzz — the story behind the app, the science of fan white noise for sleep, and how it helps you fall asleep faster." />
+      </Helmet>
       <Page requireDarkRoom={true} customContent={true}>
         <div className="about-container">
           <div className="about-header">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Page from "../Page";
 import "./FanModelsPage.scss";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +47,16 @@ const FanModelsPage = () => {
   };
 
   return (
-    <Page
+    <>
+      <Helmet>
+        <title>Fan Models | Stand Fan, Ceiling Fan & More | Fan SoundZzz</title>
+        <meta name="description" content="Browse all available fan sound models on Fan SoundZzz. Choose from pedestal stand fans, ceiling fans, box fans and more — each with realistic white noise sounds for sleep." />
+        <link rel="canonical" href="https://fansoundzzz.com/fan-models" />
+        <meta property="og:url" content="https://fansoundzzz.com/fan-models" />
+        <meta property="og:title" content="Fan Models | Stand Fan, Ceiling Fan & More | Fan SoundZzz" />
+        <meta property="og:description" content="Browse all available fan sound models on Fan SoundZzz. Choose from pedestal stand fans, ceiling fans, box fans and more — each with realistic white noise sounds for sleep." />
+      </Helmet>
+      <Page
       requireDarkRoom={true}
       customContent={true}
     >
@@ -116,6 +126,7 @@ const FanModelsPage = () => {
         </div>
       </div>
     </Page>
+    </>
   );
 };
 

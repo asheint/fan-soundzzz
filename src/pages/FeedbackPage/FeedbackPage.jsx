@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Page from "../Page";
 import "./FeedbackPage.scss";
 import { useState } from "react";
@@ -52,11 +53,21 @@ const FeedbackPage = () => {
   };
 
   return (
-    <Page requireDarkRoom={true} customContent={true}>
-      <div className="feedback-container">
-        <div className="feedback-header">
-          <h1>Feedback</h1>
-          <p className="feedback-subtitle">Share your thoughts and help us improve Fan SoundZzz</p>
+    <>
+      <Helmet>
+        <title>Feedback | Fan SoundZzz</title>
+        <meta name="description" content="Share your feedback about Fan SoundZzz. Help us improve fan sounds, features, and your sleep experience." />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://fansoundzzz.com/feedback" />
+        <meta property="og:url" content="https://fansoundzzz.com/feedback" />
+        <meta property="og:title" content="Feedback | Fan SoundZzz" />
+        <meta property="og:description" content="Share your feedback about Fan SoundZzz. Help us improve fan sounds, features, and your sleep experience." />
+      </Helmet>
+      <Page requireDarkRoom={true} customContent={true}>
+        <div className="feedback-container">
+          <div className="feedback-header">
+            <h1>Feedback</h1>
+            <p className="feedback-subtitle">Share your thoughts and help us improve Fan SoundZzz</p>
         </div>
 
         {!isSubmitted ? (
@@ -156,6 +167,7 @@ const FeedbackPage = () => {
         )}
       </div>
     </Page>
+    </>
   );
 };
 

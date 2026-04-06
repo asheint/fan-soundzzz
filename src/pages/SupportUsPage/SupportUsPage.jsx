@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Page from "../Page";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaHandHoldingHeart, FaRocket, FaUsers } from "react-icons/fa";
@@ -6,6 +7,15 @@ import "./SupportUsPage.scss";
 const SupportUsPage = () => {
   return (
     <>
+      <Helmet>
+        <title>Support Us | Fan SoundZzz</title>
+        <meta name="description" content="Help keep Fan SoundZzz free for everyone. Support the project so we can keep adding new fan sounds, models, and features." />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://fansoundzzz.com/support-us" />
+        <meta property="og:url" content="https://fansoundzzz.com/support-us" />
+        <meta property="og:title" content="Support Us | Fan SoundZzz" />
+        <meta property="og:description" content="Help keep Fan SoundZzz free for everyone. Support the project so we can keep adding new fan sounds, models, and features." />
+      </Helmet>
       <Page requireDarkRoom={true} customContent={true}>
         <div className="support-container">
           <div className="support-header">

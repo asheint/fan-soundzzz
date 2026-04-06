@@ -1,0 +1,34 @@
+# Security + performance headers for Cloudflare Pages
+# Applied to every response unless overridden by a more specific rule below
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Hashed Vite asset chunks — safe to cache for 1 year (filenames change on content change)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Audio files — rarely change, cache aggressively
+/sounds/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 3D model files — rarely change, cache aggressively
+/models/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicons, manifest, OG image — cache 1 day (can be updated)
+/media/*
+  Cache-Control: public, max-age=86400
+
+# Sitemap — cache 1 day so Google picks up changes quickly
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml; charset=utf-8
+
+# Robots.txt — cache 1 day
+/robots.txt
+  Cache-Control: public, max-age=86400

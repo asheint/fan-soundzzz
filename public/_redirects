@@ -1,0 +1,4 @@
+# SPA catch-all redirect for Cloudflare Pages
+# Serves index.html for any path that doesn't match a real file,
+# enabling React Router client-side navigation to work correctly.
+/* /index.html 200
